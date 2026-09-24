@@ -6,7 +6,7 @@ Convenient web tool for Betaflight FPV OSD customization.<br>
 Try at: https://epileksiy.github.io/DroneFont/
 <p></p>
 <br>
-<img width="800" alt="Снимок экрана 2026-09-24 в 14 42 37" src="https://github.com/user-attachments/assets/848f3b6e-5054-4124-95f4-a0eeaee32d5b" />
+<img width="800" alt="Снимок экрана 2026-09-24 в 16 41 26" src="https://github.com/user-attachments/assets/03dff02a-fab3-4097-9829-8c32502053fb" />
 <p></p>
 <br>
-<img width="800" alt="Снимок экрана 2026-09-24 в 16 41 26" src="https://github.com/user-attachments/assets/03dff02a-fab3-4097-9829-8c32502053fb" />
+<img width="800" alt="Снимок экрана 2026-09-24 в 14 42 37" src="https://github.com/user-attachments/assets/848f3b6e-5054-4124-95f4-a0eeaee32d5b" />
