@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OSD Font Studio</title>
+<meta name="description" content="Редактор символов OSD-шрифтов для Betaflight — SD (MAX7456 .mcm) и HD форматы." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand">
+        <div class="brand-top">
+          <svg class="brand-glyph" width="18" height="18" viewBox="0 0 18 18" shape-rendering="crispEdges" aria-hidden="true">
+            <!-- пиксельный прицел OSD: угловые скобки + центральная точка -->
+            <rect x="1" y="1" width="4" height="2" fill="currentColor"/>
+            <rect x="1" y="1" width="2" height="4" fill="currentColor"/>
+            <rect x="13" y="1" width="4" height="2" fill="currentColor"/>
+            <rect x="15" y="1" width="2" height="4" fill="currentColor"/>
+            <rect x="1" y="15" width="4" height="2" fill="currentColor"/>
+            <rect x="1" y="13" width="2" height="4" fill="currentColor"/>
+            <rect x="13" y="15" width="4" height="2" fill="currentColor"/>
+            <rect x="15" y="13" width="2" height="4" fill="currentColor"/>
+            <rect x="8" y="8" width="2" height="2" fill="currentColor"/>
+          </svg>
+          <span class="brand-name">DroneFont</span>
+        </div>
+        <a class="brand-sub" href="https://gigarussian.ru" target="_blank" rel="noopener">
+          <span class="flag-icon" aria-hidden="true"></span>
+          <span class="brand-sub-name">GIGARUSSIAN</span>
+          <span class="link-arrow" aria-hidden="true">↩</span>
+        </a>
+      </div>
+
+      <div class="menu lang-select">
+        <button class="lang-flag-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" title="Язык / Language">
+          <span class="flag-square flag-ru" id="langCurrentFlag" aria-hidden="true"></span>
+          <span class="lang-chevron" aria-hidden="true">
+            <svg width="7" height="5" viewBox="0 0 7 5"><path d="M0 0 L7 0 L3.5 5 Z" fill="currentColor"/></svg>
+          </span>
+        </button>
+        <div class="menu-list lang-menu" id="langMenu" role="listbox">
+          <button data-lang="en" class="lang-flag-opt" id="langAltOpt" role="option" aria-label="English">
+            <span class="flag-square flag-gb" id="langAltFlag" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <button class="btn logo-tab-btn" id="btnLogoTab" data-i18n="nav.logoTab">Лого</button>
+
+      <div class="mode-toggle-wrap">
+        <span class="mode-label active" data-mode="SD" id="modeLabelSD">SD</span>
+        <button class="ios-toggle" id="modeToggle" role="switch" aria-checked="false" title="SD / HD">
+          <span class="ios-toggle-knob"></span>
+        </button>
+        <span class="mode-label" data-mode="HD" id="modeLabelHD">HD</span>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="btn" id="btnNew" data-i18n="nav.new">Новый</button>
+
+      <div class="menu">
+        <button class="icon-btn" id="btnImportToggle" data-i18n-title="nav.import" title="Импорт">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true">
+            <path d="M1.5 4.2c0-.6.5-1.1 1.1-1.1h3l1.2 1.4h5.6c.6 0 1.1.5 1.1 1.1v.6H2.4" fill="none"/>
+            <path d="M1.7 6.2h11.9c.6 0 1 .5.9 1.1l-.9 5.1c-.1.5-.5.9-1 .9H2.9c-.5 0-.9-.4-1-.9l-.9-5.1c-.1-.6.3-1.1.9-1.1z" fill="none"/>
+          </svg>
+        </button>
+        <div class="menu-list" id="importMenu">
+          <button data-import="mcm" data-i18n="import.mcm">.mcm (SD MAX7456)</button>
+          <button data-import="bmp" data-i18n="import.bmp">.bmp (HD лист)</button>
+          <button data-import="png" data-i18n="import.png">.png (спрайт-лист)</button>
+          <button data-import="json" data-i18n="import.json">.json (проект)</button>
+        </div>
+      </div>
+
+      <div class="menu">
+        <button class="icon-btn icon-btn-accent" id="btnExportToggle" data-i18n-title="nav.export" title="Экспорт">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 3v10"/>
+            <path d="M3.5 8.5L8 13l4.5-4.5"/>
+            <path d="M2.5 13.5h11"/>
+          </svg>
+        </button>
+        <div class="menu-list" id="exportMenu">
+          <button data-export="mcm" data-i18n="export.mcm">.mcm (SD MAX7456)</button>
+          <button data-export="bmp" data-i18n="export.bmp">.bmp (HD лист)</button>
+          <button data-export="png" data-i18n="export.png">.png (спрайт-лист)</button>
+          <button data-export="json" data-i18n="export.json">.json (проект)</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================= ОБЩАЯ ПАНЕЛЬ ИНСТРУМЕНТОВ (обе вкладки) ======================= -->
+  <div class="toolbar">
+    <div class="tool-group" id="toolGroup">
+      <button class="tool-btn active" data-tool="pen" data-i18n-title="tool.pen" title="Кисть">✎</button>
+      <button class="tool-btn" data-tool="fill" data-i18n-title="tool.fill" title="Заливка">▨</button>
+      <button class="tool-btn" data-tool="eyedrop" data-i18n-title="tool.eyedrop" title="Пипетка">◎</button>
+    </div>
+
+    <div class="tool-group brush-group" id="brushGroup">
+      <button class="tool-btn" id="btnBrushOut" data-i18n-title="tool.brushSizeOut" title="Уменьшить толщину кисти">−</button>
+      <span id="brushSizeLabel">1px</span>
+      <button class="tool-btn" id="btnBrushIn" data-i18n-title="tool.brushSizeIn" title="Увеличить толщину кисти">+</button>
+    </div>
+
+    <div class="tool-group">
+      <button class="swatch swatch-black active" data-color="0" data-i18n-title="swatch.black" title="Чёрный"></button>
+      <button class="swatch swatch-white" data-color="1" data-i18n-title="swatch.white" title="Белый"></button>
+      <button class="swatch swatch-transparent" data-color="2" data-i18n-title="swatch.transparent" title="Прозрачный"></button>
+    </div>
+
+    <div class="tool-group">
+      <button class="tool-btn" id="btnUndo" data-i18n-title="tool.undo" title="Отменить (Ctrl+Z)">↺</button>
+      <button class="tool-btn" id="btnRedo" data-i18n-title="tool.redo" title="Повторить (Ctrl+Y)">↻</button>
+    </div>
+
+    <div class="tool-group">
+      <button class="tool-btn" id="btnMirrorH" data-i18n-title="tool.mirrorH" title="Зеркало по горизонтали">⇋</button>
+      <button class="tool-btn" id="btnMirrorV" data-i18n-title="tool.mirrorV" title="Зеркало по вертикали">⇵</button>
+      <button class="tool-btn" id="btnInvert" data-i18n-title="tool.invert" title="Инвертировать чёрный/белый">◐</button>
+      <button class="tool-btn" id="btnClear" data-i18n-title="tool.clear" title="Удалить символ целиком">✕</button>
+      <button class="tool-btn" id="btnRestoreStock" data-i18n-title="tool.restoreStock" title="Восстановить из стокового шрифта">⟲</button>
+    </div>
+
+    <div class="tool-group outline-group" id="outlineGroup">
+      <button class="tool-btn" id="btnOutlineToggle" data-i18n-title="tool.outline" title="Окантовка при рисовании">▢</button>
+      <select id="outlineColorSelect" class="outline-select" data-i18n-title="tool.outlineColor" title="Цвет окантовки">
+        <option value="0" data-i18n="swatch.black">Чёрный</option>
+        <option value="1" data-i18n="swatch.white">Белый</option>
+      </select>
+      <input type="number" id="outlineWidthInput" class="outline-width" min="1" max="4" value="1" data-i18n-title="tool.outlineWidth" title="Толщина окантовки, px" />
+    </div>
+
+    <div class="tool-group zoom-group">
+      <button class="tool-btn" id="btnZoomOut" data-i18n-title="tool.zoomOut" title="Уменьшить">−</button>
+      <span id="zoomLabel">24px</span>
+      <button class="tool-btn" id="btnZoomIn" data-i18n-title="tool.zoomIn" title="Увеличить">+</button>
+    </div>
+  </div>
+
+  <!-- ======================= ВКЛАДКА: РЕДАКТОР СИМВОЛОВ ======================= -->
+  <div class="layout" id="viewChars">
+
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <input type="text" id="projectName" class="project-name-input" value="Мой OSD-шрифт" />
+        <div class="jump-row">
+          <label for="jumpInput" data-i18n="sidebar.jumpLabel">№</label>
+          <input type="number" id="jumpInput" min="0" value="0" />
+          <span class="jump-hex" id="jumpHex">0x00</span>
+        </div>
+      </div>
+      <div class="sheet-wrap" id="sheetWrap"></div>
+      <div class="sidebar-foot">
+        <span id="hoverInfo" data-i18n="sidebar.hoverDefault">— наведите на символ —</span>
+      </div>
+    </aside>
+
+    <div class="sidebar-resizer" id="sidebarResizer" title="Потяните, чтобы изменить ширину панели"></div>
+
+    <main class="workspace">
+      <div class="canvas-stage">
+        <div class="char-meta">
+          <span id="charIndexLabel">Символ #0</span>
+          <span id="charDimLabel">12×18</span>
+        </div>
+        <div class="canvas-scroll">
+          <canvas id="editorCanvas"></canvas>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ======================= ВКЛАДКА: СТАРТОВЫЙ ЛОГОТИП ======================= -->
+  <section class="logo-view" id="viewLogo" hidden>
+    <div class="logo-view-head">
+      <div class="logo-panel-title">
+        <span data-i18n="logo.title">Стартовый логотип</span>
+        <span class="logo-panel-sub" id="logoRangeLabel">символы 160–255 · сетка 24×4</span>
+      </div>
+      <div class="logo-panel-controls">
+        <label class="logo-threshold" data-i18n-title="logo.thresholdTitle" title="Порог яркости чёрный/белый">
+          <span data-i18n="logo.threshold">Порог</span>
+          <input type="range" id="logoThreshold" min="20" max="235" value="128" />
+        </label>
+        <button class="btn" id="btnLogoFile" data-i18n="logo.upload">Загрузить картинку</button>
+      </div>
+    </div>
+    <div class="logo-drop logo-drop-big" id="logoDrop" data-i18n-title="logo.dropTitle" title="Рисуйте прямо здесь тем же набором инструментов сверху, или перетащите картинку">
+      <canvas id="logoPreview"></canvas>
+      <div class="logo-drop-hint" id="logoDropHint" data-i18n="logo.hint">
+        Рисуйте прямо на логотипе тем же набором инструментов, что и для символов — сверху. Или перетащите картинку — она обрежется по центру и разложится по символам автоматически.
+      </div>
+    </div>
+    <p class="logo-view-footnote" data-i18n="logo.tileHint">Двойной клик по тайлу открывает этот символ отдельно на вкладке символов.</p>
+  </section>
+
+  <input type="file" id="logoFileInput" accept="image/*" style="display:none" />
+
+  <footer class="statusbar">
+    <span id="statusMsg">Готов к работе.</span>
+    <span class="status-right" id="dirtyIndicator"></span>
+  </footer>
+</div>
+
+<input type="file" id="fileInput" style="display:none" />
+
+<!-- Свой диалог подтверждения/сообщения — window.confirm()/alert() в песочнице
+     артефакта (iframe) браузер может тихо блокировать, поэтому не используем их. -->
+<div class="dialog-overlay" id="dialogOverlay" hidden>
+  <div class="dialog-box" role="alertdialog" aria-modal="true">
+    <p class="dialog-message" id="dialogMessage"></p>
+    <div class="dialog-actions">
+      <button class="btn" id="dialogCancel" data-i18n="dialog.cancel">Отмена</button>
+      <button class="btn btn-accent" id="dialogOk" data-i18n="dialog.ok">ОК</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
