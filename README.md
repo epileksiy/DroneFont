@@ -1,4 +1,6 @@
-# OSD Font Studio
+# DroneFont (OSD Font Studio)
+
+Convenient web tool for Betaflight FPV OSD customization.
 
 Редактор символов OSD-шрифтов для Betaflight. Работает полностью в браузере,
 без сервера и без сборки — чистый HTML/CSS/JS (ES-модули).
